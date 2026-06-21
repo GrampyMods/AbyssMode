@@ -1,0 +1,96 @@
+           ---====== Load spawner ======---
+
+local Spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/DOORS-Entity-Spawner-V2/main/init.luau"))()
+
+---====== Create entity ======---
+
+local entity = Spawner:Create({
+Entity = {
+Name = "A-400",
+Asset = "rbxassetid://105317397948280",
+HeightOffset = 0
+},
+
+Lights = {
+	Flicker = {
+		Enabled = false
+	},
+	Shatter = false,
+	Repair = false
+},
+
+Earthquake = {
+	Enabled = true
+},
+
+CameraShake = {
+	Enabled = true,
+	Range = 150,
+	Values = {2, 25, 0.1, 1}
+},
+
+Movement = {
+	Speed = 500,
+	Delay = 10,
+	Reversed = false
+},
+
+Rebounding = {
+	Enabled = true,
+	Type = "Blitz",
+	Min = 10,
+	Max = 15,
+	Delay = 0.5
+},
+
+Damage = {
+	Enabled = true,
+	IgnoreHiding = false,
+	Range = 40,
+	Amount = 125
+},
+
+Crucifixion = {
+	Enabled = true,
+	Range = 40,
+	Resist = false,
+	Break = false
+},
+
+Death = {
+	Type = "Curious",
+	Hints = {
+		"A-400 does not flicker the lights.",
+		"Listen carefully for its sound.",
+		"It is extremely fast.",
+		"Hide as soon as you hear it.",
+		"A-400 can rebound multiple times."
+	},
+	Cause = "A-400"
+}
+
+})
+
+---====== Callbacks ======---
+
+entity:SetCallback("OnSpawned", function()
+local sound = Instance.new("Sound")
+sound.SoundId = "rbxassetid://139095330035399"
+sound.Volume = 3
+sound.Parent = workspace
+sound:Play()
+
+
+game:GetService("Debris"):AddItem(sound, 10)
+
+entity:SetCallback("OnRebounding", function(startOfRebound)
+print("A-400 rebound:", startOfRebound)
+end)
+
+entity:SetCallback("OnDespawning", function()
+print("A-400 despawned.")
+end)
+
+---====== Run entity ======---
+
+entity:Run()
