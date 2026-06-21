@@ -1,0 +1,87 @@
+            ---====== Load spawner ======---
+
+local Spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/DOORS-Entity-Spawner-V2/main/init.luau"))()
+
+---====== Create entity ======---
+
+local entity = Spawner:Create({
+Entity = {
+Name = "Eye",
+Asset = "rbxassetid://137345888061552",
+HeightOffset = 0
+}, 
+
+Lights = {
+	Flicker = {
+		Enabled = true,
+		Duration = 6
+	},
+	Shatter = false,
+	Repair = false
+},
+
+Earthquake = {
+	Enabled = false
+},
+
+CameraShake = {
+	Enabled = true,
+	Range = 100,
+	Values = {1, 20, 0.1, 1}
+},
+
+Movement = {
+	Speed = 15,
+	Delay = 2,
+	Reversed = false
+},
+
+Rebounding = {
+	Enabled = true,
+	Type = "Ambush",
+	Min = 3,
+	Max = 3,
+	Delay = 1
+},
+
+Damage = {
+	Enabled = true,
+	IgnoreHiding = false,
+	Range = 20,
+	Amount = 125
+},
+
+Crucifixion = {
+	Enabled = true,
+	Range = 20,
+	Resist = false,
+	Break = false
+},
+
+Death = {
+	Type = "Curious",
+	Hints = {
+		"Eye kills instantly when it gets close.",
+		"Keep your distance.",
+		"The lights warned you.",
+		"Find a hiding spot quickly.",
+		"Eye rebounds several times."
+	},
+	Cause = "Eye"
+} 
+
+})
+
+---====== Callbacks ======---
+
+entity:SetCallback("OnRebounding", function(startOfRebound)
+print("Eye rebound:", startOfRebound)
+end)
+
+entity:SetCallback("OnDespawning", function()
+print("Eye despawned.")
+end)
+
+---====== Run entity ======---
+
+entity:Run()
