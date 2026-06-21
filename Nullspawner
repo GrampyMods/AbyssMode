@@ -1,0 +1,80 @@
+local Spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/DOORS-Entity-Spawner-V2/main/init.luau"))()
+
+---====== Create entity ======---
+
+local entity = Spawner:Create({
+	Entity = {
+		Name = "Null",
+		Asset = "rbxassetid://93929185228958",
+		HeightOffset = 0
+	},
+
+	Lights = {
+		Flicker = {
+			Enabled = false
+		},
+		Shatter = false,
+		Repair = false
+	},
+
+	Earthquake = {
+		Enabled = false
+	},
+
+	CameraShake = {
+		Enabled = true,
+		Range = 30,
+		Values = {0.3, 10, 0.05, 0.5}
+	},
+
+	Movement = {
+		Speed = 10, -- Très lent
+		Delay = 3,
+		Reversed = false
+	},
+
+	Rebounding = {
+		Enabled = false
+	},
+
+	Damage = {
+		Enabled = true,
+		IgnoreHiding = true,
+		Range = 20, -- Très faible portée
+		Amount = 125
+	},
+
+	Crucifixion = {
+		Enabled = true,
+		Range = 5,
+		Resist = false,
+		Break = false
+	},
+
+	Death = {
+		Type = "Curious",
+		Hints = {
+			"Null is not fast.",
+			"You had plenty of time to escape.",
+			"Keep moving.",
+			"It only becomes dangerous when it gets close.",
+			"The Abyss follows."
+		},
+		Cause = "Null"
+	}
+})
+
+---====== Debug entity ======---
+
+entity:SetCallback("OnSpawned", function()
+	require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game)
+		.caption("You suddenly feel a strange presence..", true)
+end)
+
+entity:SetCallback("OnDespawning", function()
+	print("Null despawned.")
+end)
+
+---====== Run entity ======---
+
+entity:Run()
